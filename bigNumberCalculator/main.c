@@ -90,14 +90,14 @@ void add(char a[], char b[], char ans[]){
 		strcpy(ans, "哎呀！ 超出所能計算的最大數 :(");
 		return;
 	}
-	reverseStr(a);
+	reverseStr(a);//將陣列倒過來，方便計算
 	reverseStr(b);
-	int dotA = findDot(a);
+	int dotA = findDot(a);//從右邊數來小數點的位置(123.4, dotA = 2)
 	int dotB = findDot(b);
-	int offsetA = 0;
+	int offsetA = 0;//利用偏移量使a b兩數的小數點對齊
 	int offsetB = 0;
 
-	if(dotA < dotB) {
+	if(dotA < dotB) {//根據小數點的位置判斷是a或b偏移
 		offsetA = dotB - dotA;
 	}else if (dotA > dotB) {
 		offsetB = dotA - dotB;
@@ -105,27 +105,27 @@ void add(char a[], char b[], char ans[]){
 
 	int addToNext = 0;//進位到下一位的數
 	for(int i = 0; i <= max(strlen(a), strlen(b)) + offsetA + offsetB; i++) {
-		int indexA = i - offsetA;
+		int indexA = i - offsetA;//減去offset計算真正的index
 		int indexB = i - offsetB;
 		if(i == NUM_MAX  && addToNext == 1) {
 			strcpy(ans, "哎呀！ 超出所能計算的最大數 :(");
 			return;
 		}
-		if(i == max(strlen(a), strlen(b)) + offsetA + offsetB && addToNext == 0) {
+		if(i == max(strlen(a), strlen(b)) + offsetA + offsetB && addToNext == 0) {//for loop 最後一輪，判斷是否進位
 			break;
 		}
-		if(a[indexA] == '\0' && b[indexB] == '\0' && addToNext == 0) {
+		if(a[indexA] == '\0' && b[indexB] == '\0' && addToNext == 0) {//如果a和b都無數字且無進位(50 + 50 = 100)
 			break;
 		}
 
-		if(a[indexA] == '.' || b[indexB] == '.') {
+		if(a[indexA] == '.' || b[indexB] == '.') {//遇到小數點時跳過
 			ans[i] = '.';
 			continue;
 		}
-		int ai = indexA >= 0 ? toInt(a[indexA]) : 0;
-		int bi = indexB >= 0 ? toInt(b[indexB]) : 0;
+		int ai = indexA >= 0 ? toInt(a[indexA]) : 0;//a b 兩數位數不同時index有可能為負,
+		int bi = indexB >= 0 ? toInt(b[indexB]) : 0;//因為有扣除偏移量(offsetA B)
 		int tmp = ai + bi + addToNext;
-		if(tmp > 9) {
+		if(tmp > 9) {//判斷是否進位
 			ans[i] = toChar(tmp - 10);
 			addToNext = 1;
 		}else{
@@ -134,7 +134,7 @@ void add(char a[], char b[], char ans[]){
 		}
 
 	}
-	reverseStr(ans);
+	reverseStr(ans);//將陣列倒回來，成為最後的答案
 }
 
 bool minusIsNegative(char a[], char b[]){
@@ -178,14 +178,14 @@ void minus(char a[], char b[], char ans[]){
 		}
 		return;
 	}
-	reverseStr(a);
+	reverseStr(a);//將陣列倒過來，方便計算
 	reverseStr(b);
 	int dotA = findDot(a);
 	int dotB = findDot(b);
-	int offsetA = 0;
+	int offsetA = 0;//利用偏移量使a b兩數的小數點對齊
 	int offsetB = 0;
 
-	if(dotA < dotB) {
+	if(dotA < dotB) {//根據小數點的位置判斷是a或b偏移
 		offsetA = dotB - dotA;
 	}else if (dotA > dotB) {
 		offsetB = dotA - dotB;
@@ -193,27 +193,25 @@ void minus(char a[], char b[], char ans[]){
 
 	int previousBorrow = 0;//上一位的借位
 	for(int i = 0; i <= max(strlen(a), strlen(b)) + offsetA + offsetB; i++) {
-		int indexA = i - offsetA;
+		int indexA = i - offsetA;//減去offset計算真正的index
 		int indexB = i - offsetB;
 		if(i == NUM_MAX  && previousBorrow == 1) {
 			strcpy(ans, "哎呀！ 超出所能計算的最大數 :(");
 			return;
 		}
-		/*if(i == max(strlen(a), strlen(b)) + offsetA + offsetB && previousBorrow == 0) {
-			break;
-		}*/
+		
 		if(a[indexA] == '\0' && b[indexB] == '\0') {
 			break;
 		}
 
-		if(a[indexA] == '.' || b[indexB] == '.') {
+		if(a[indexA] == '.' || b[indexB] == '.') {//遇到小數點時跳過
 			ans[i] = '.';
 			continue;
 		}
 		int ai = indexA >= 0 ? toInt(a[indexA]) : 0;
 		int bi = indexB >= 0 ? toInt(b[indexB]) : 0;
 		int tmp = ai - bi - previousBorrow;
-		if(tmp < 0) {
+		if(tmp < 0) {//判斷是否需借位
 			ans[i] = toChar(tmp + 10);
 			previousBorrow = 1;
 		}else{
@@ -245,16 +243,4 @@ void minus(char a[], char b[], char ans[]){
    0.45 0.78
    12.5 2.1
    123.1 2.456
-
-   1234.567
-   0123.2
-   123
-      0.022
-   1232.1
-   123
-   45
-
-
-   2
-   3
  */
