@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-#define NUM_MAX 5 //在此定義所能計算的最大位數
+#define NUM_MAX 100 //在此定義所能計算的最大位數
 
 void reverseStr(char str[]);
 int toInt(char charNum);
@@ -20,6 +20,7 @@ int max(unsigned long a, unsigned long b){
 	return a > b ? (int)a : (int)b;
 }
 bool minusIsNegative(char a[], char b[]);
+
 
 int main(int argc, const char * argv[]) {
 
@@ -35,8 +36,10 @@ int main(int argc, const char * argv[]) {
 		printf("請輸入第一個數字：");
 		scanf("%s",numA);
 		printf("請輸入第二個數字：");
+        setbuf(stdin, NULL);//清空輸入緩衝區
 		scanf("%s",numB);
 		printf("1. 加法\n2. 減法\n請輸入數字選擇要進行的運算: ");
+        setbuf(stdin, NULL);//清空輸入緩衝區
 		int calculateType;
 		scanf("%d",&calculateType);
 
