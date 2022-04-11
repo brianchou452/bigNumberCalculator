@@ -24,10 +24,10 @@ bool minusIsNegative(char a[], char b[]);
 
 int main(int argc, const char * argv[]) {
 
-    printf("這是一個可以計算%d位數加減法的計算機\n", NUM_MAX);
-    printf("輸入數字僅接受正整數或正小數，\n");
-    printf("輸入錯誤會導致程式壞掉歐!!!\n\n\n");
-    printf("###############################\n");
+	printf("這是一個可以計算%d位數加減法的計算機\n", NUM_MAX);
+	printf("輸入數字僅接受正整數或正小數，\n");
+	printf("輸入錯誤會導致程式壞掉歐!!!\n\n\n");
+	printf("###############################\n");
 	bool continueCal = true;
 	do {
 		char numA[NUM_MAX + 1] = {};// +1 是因為有'\0'
@@ -36,10 +36,10 @@ int main(int argc, const char * argv[]) {
 		printf("請輸入第一個數字：");
 		scanf("%s",numA);
 		printf("請輸入第二個數字：");
-        setbuf(stdin, NULL);//清空輸入緩衝區
+		setbuf(stdin, NULL);//清空輸入緩衝區
 		scanf("%s",numB);
 		printf("1. 加法\n2. 減法\n請輸入數字選擇要進行的運算: ");
-        setbuf(stdin, NULL);//清空輸入緩衝區
+		setbuf(stdin, NULL);//清空輸入緩衝區
 		int calculateType;
 		scanf("%d",&calculateType);
 
@@ -58,7 +58,7 @@ int main(int argc, const char * argv[]) {
 		scanf("%d",&continueType);
 		continueCal = continueType == 1 ? true : false;
 		printf("\n\n");
-        printf("========================\n");
+		printf("========================\n");
 	} while (continueCal);
 
 
@@ -143,9 +143,9 @@ void add(char a[], char b[], char ans[]){
 bool minusIsNegative(char a[], char b[]){
 	int lengthA = (int)strlen(a);
 	int lengthB = (int)strlen(b);
-    int findDotA = findDot(a);
-    int findDotB = findDot(b);
-    int dotA = findDotA == -1 ? 0 : lengthA - findDotA;//從右邊數來小數點在第幾位,
+	int findDotA = findDot(a);
+	int findDotB = findDot(b);
+	int dotA = findDotA == -1 ? 0 : lengthA - findDotA;//從右邊數來小數點在第幾位,
 	int dotB = findDotB == -1 ? 0 : lengthB - findDotB;//如果使用者輸入的數無小數點findDot()會回傳-1,因此需判斷！
 	if(lengthA - dotA > lengthB - dotB ) {//比較小數點左邊的位數
 		return false;
@@ -202,7 +202,7 @@ void minus(char a[], char b[], char ans[]){
 			strcpy(ans, "哎呀！ 超出所能計算的最大數 :(");
 			return;
 		}
-		
+
 		if(a[indexA] == '\0' && b[indexB] == '\0') {
 			break;
 		}
@@ -218,7 +218,7 @@ void minus(char a[], char b[], char ans[]){
 			ans[i] = toChar(tmp + 10);
 			previousBorrow = 1;
 		}else{
-            //避免 100 - 20 ＝ 080
+			//避免 100 - 20 ＝ 080
 			if(i == max(strlen(a), strlen(b)) + offsetA + offsetB - 1 && tmp == 0 && ans[i - 1] != '.') {
 				ans[i] = '\0';
 				break;
